@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<h2>📊 Dashboard Overview</h2>
+
+<div style="display: flex; gap: 20px; flex-wrap: wrap;">
+  <div style="flex:1; background: #e0f7fa; padding: 20px; border-radius: 10px;">
+    <h3>Total Orders</h3>
+    <p style="font-size: 24px;"><b>{{ total_orders }}</b></p>
+  </div>
+  <div style="flex:1; background: #ffe0b2; padding: 20px; border-radius: 10px;">
+    <h3>Today’s Orders</h3>
+    <p style="font-size: 24px;"><b>{{ today_orders }}</b></p>
+  </div>
+  <div style="flex:1; background: #c8e6c9; padding: 20px; border-radius: 10px;">
+    <h3>Total Revenue</h3>
+    <p style="font-size: 24px;">৳ <b>{{ total_revenue }}</b></p>
+  </div>
+</div>
+
+<br><h3>📦 Order Status Summary</h3>
+<ul>
+  <li>Pending: {{ status_dict.Pending|default:0 }}</li>
+  <li>Processing: {{ status_dict.Processing|default:0 }}</li>
+  <li>Shipped: {{ status_dict.Shipped|default:0 }}</li>
+  <li>Delivered: {{ status_dict.Delivered|default:0 }}</li>
+  <li>Cancelled: {{ status_dict.Cancelled|default:0 }}</li>
+</ul>
+
+<h3>🕓 Recent Orders</h3>
+<table border="1" cellpadding="8" cellspacing="0" width="100%">
+  <thead>
+    <tr>
+      <th>Order ID</th>
+      <th>Customer</th>
+      <th>Phone</th>
+      <th>Status</th>
+      <th>Total</th>
+      <th>Date</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for order in recent_orders %}
+    <tr>
+      <td>{{ order.order_id }}</td>
+      <td>{{ order.customer.name }}</td>
+      <td>{{ order.customer.phone }}</td>
+      <td>{{ order.status }}</td>
+      <td>৳ {{ order.grand_total }}</td>
+      <td>{{ order.date|date:"d M Y H:i" }}</td>
+    </tr>
+    {% empty %}
+    <tr><td colspan="6">No orders found.</td></tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% endblock %}

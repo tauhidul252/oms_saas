@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %}Confirm Delete{% endblock %}
+
+{% block content %}
+<h2 style="color: red;">🗑 Confirm Delete</h2>
+<p>Are you sure you want to delete the following order?</p>
+
+<table border="1" cellpadding="8" cellspacing="0" width="100%" style="margin-bottom: 20px;">
+    <tr>
+        <th>Order ID</th>
+        <td>{{ order.order_id }}</td>
+    </tr>
+    <tr>
+        <th>Customer</th>
+        <td>{{ order.customer.name }} ({{ order.customer.phone }})</td>
+    </tr>
+    <tr>
+        <th>Total</th>
+        <td>৳ {{ order.grand_total }}</td>
+    </tr>
+    <tr>
+        <th>Status</th>
+        <td>{{ order.status }}</td>
+    </tr>
+</table>
+
+<form method="post">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger">✅ Yes, Delete This Order</button>
+    <a href="{% url 'order_detail' order.order_id %}" class="btn btn-secondary">↩ Cancel</a>
+</form>
+{% endblock %}

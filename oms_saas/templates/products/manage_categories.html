@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block title %}Manage Categories{% endblock %}
+
+{% block content %}
+<h2>📁 Manage Categories & Prefixes</h2>
+
+<h3>➕ Add/Edit Category</h3>
+<form method="post">
+    {% csrf_token %}
+    {{ category_form.as_p }}
+    <button type="submit" class="btn btn-primary">💾 Save Category</button>
+</form>
+
+<h3>➕ Add Subcategory</h3>
+<form method="post">
+    {% csrf_token %}
+    {{ subcategory_form.as_p }}
+    <button type="submit" class="btn btn-secondary">➕ Add Subcategory</button>
+</form>
+
+<h3>📋 Existing Categories</h3>
+<ul>
+    {% for cat in categories %}
+        <li><b>{{ cat.name }}</b> (Prefix: {{ cat.prefix }})
+            <ul>
+                {% for sub in cat.subcategories.all %}
+                    <li>- {{ sub.name }}</li>
+                {% endfor %}
+            </ul>
+        </li>
+    {% endfor %}
+</ul>
+{% endblock %}

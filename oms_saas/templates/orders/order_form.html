@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% block title %}Create Order{% endblock %}
+
+{% block content %}
+<h2>📝 Create New Order</h2>
+
+{% if error %}
+<div style="color: red; padding: 10px; background: #ffe0e0; margin-bottom: 10px;">
+  {{ error }}
+</div>
+{% endif %}
+
+<form method="post">
+    {% csrf_token %}
+
+    <!-- Customer Info -->
+    <h3>👤 Customer Information</h3>
+    <label>Phone Number:</label><br>
+    <input type="text" name="customer_phone" id="phoneInput" required><br><br>
+
+    <label>Customer Name:</label><br>
+    <input type="text" name="customer_name" id="nameInput" required><br><br>
+
+    <label>Address:</label><br>
+    <input type="text" name="customer_address" id="addressInput" required><br><br>
+
+    <!-- Product Info -->
+    <h3>📦 Product Information</h3>
+    <label>Select Product:</label><br>
+    <select name="product_id" id="productSelect" required>
+        <option value="">-- Select Product --</option>
+        {% for product in products %}
+            <option value="{{ product.id }}" data-price="{{ product.price }}">{{ product.name }}</option>
+        {% endfor %}
+    </select><br><br>
+
+    <label>Quantity:</label><br>
+    <input type="number" name="quantity" value="1" min="1" required><br><br>
+
+    <label>Unit Price:</label><br>
+    <input type="number" name="unit_price" step="0.01" id="priceInput" readonly><br><br>
+
+    <label>Discount (optional):</label><br>
+    <input type="number" name="discount_amount" step="0.01" value="0"><br><br>
+
+    <label>Tracking Number (optional):</label><br>
+    <input type="text" name="tracking_number"><br><br>
+
+    <!-- Submit -->
+    <button type="submit" class="btn btn-success">💾 Save Order</button>
+</form>
+
+<script>
+// 🧠 Autofill name/address (future AJAX)
+document.getElementById('phoneInput').addEventListener('change', function () {
+    const phone = this.value;
+    if (phone === "01710000000") {
+        document.getElementById('nameInput').value = "Rafiq";
+        document.getElementById('addressInput').value = "Dhaka, Bangladesh";
+    }
+});
+
+// 🧠 Auto-fill unit price
+document.getElementById('productSelect').addEventListener('change', function () {
+    const selectedOption = this.options[this.selectedIndex];
+    const price = selectedOption.getAttribute('data-price');
+    document.getElementById('priceInput').value = price || "";
+});
+</script>
+{% endblock %}

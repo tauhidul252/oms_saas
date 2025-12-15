@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block title %}Add Employee{% endblock %}
+
+{% block content %}
+<h2>➕ Add New Employee</h2>
+
+<form method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+
+  <button type="submit" class="btn btn-success">💾 Save</button>
+</form>
+
+<a href="{% url 'employee_list' %}">← Back to Employee List</a>
+{% endblock %}

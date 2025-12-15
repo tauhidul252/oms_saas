@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Invoice - {{ order.order_id }}</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 40px; }
+        .header, .footer { text-align: center; }
+        .logo { height: 60px; }
+        .info { margin-top: 20px; }
+        .table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        .table th, .table td { border: 1px solid #ccc; padding: 8px; text-align: center; }
+        .total { font-size: 18px; font-weight: bold; text-align: right; margin-top: 20px; }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <img src="{{ settings.logo_url }}" alt="Logo" class="logo">
+        <h2>{{ settings.brand_name }}</h2>
+        <p>Invoice Date: {{ order.date|date:"d M Y" }}</p>
+        <p>Invoice ID: {{ order.order_id }}</p>
+        <p>Tracking Number: {{ order.tracking_number|default:"(Not Assigned)" }}</p>
+    </div>
+
+    <div class="info">
+        <p><strong>Customer:</strong> {{ order.customer.name }}</p>
+        <p><strong>Phone:</strong> {{ order.customer.phone }}</p>
+        <p><strong>Delivery Address:</strong> {{ order.customer.address }}</p>
+    </div>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>SL</th>
+                <th>Product</th>
+                <th>Qty</th>
+                <th>Price</th>
+                <th>Subtotal</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in order.items %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ item.product_name }}</td>
+                <td>{{ item.quantity }}</td>
+                <td>৳ {{ item.unit_price }}</td>
+                <td>৳ {{ item.total_price }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="total">
+        {% if order.discount_amount > 0 %}
+        Discount: -৳ {{ order.discount_amount }}<br>
+        {% endif %}
+        Total: ৳ {{ order.grand_total }}
+    </div>
+
+    <div class="footer">
+        <p>Thank you for shopping with {{ settings.brand_name }}!</p>
+    </div>
+
+</body>
+</html>

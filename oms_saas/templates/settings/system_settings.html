@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block title %}System Settings{% endblock %}
+
+{% block content %}
+<h2>⚙️ System Settings</h2>
+
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+
+    <h3>🧾 Invoice Settings</h3>
+    <p>
+        <label><b>Enable Invoice Rounding:</b></label><br>
+        {{ form.rounding_enabled }}
+    </p>
+
+    <button type="submit">Save</button>
+</form>
+
+<hr>
+
+<h3>📲 WhatsApp Settings Info</h3>
+<ul>
+    <li><b>Token Field:</b> <code>whatsapp_token</code></li>
+    <li><b>API URL Field:</b> <code>whatsapp_api_url</code></li>
+    <li><b>Available Shortcodes:</b></li>
+    <ul>
+        <li><code>{{name}}</code> → Customer Name</li>
+        <li><code>{{order_id}}</code> → Order ID</li>
+        <li><code>{{status}}</code> → Order Status</li>
+    </ul>
+</ul>
+{% endblock %}

@@ -1,0 +1,6 @@
+Django>=4.0
+mysqlclient>=2.0
+python-dotenv>=1.0.0
+
+এটা server এ install করার জন্য দরকার হবে:
+pip install -r requirements.txt

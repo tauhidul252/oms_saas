@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}OMS SaaS{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Style -->
+    <style>
+        body {
+            font-family: "Segoe UI", sans-serif;
+            margin: 0;
+            padding: 0;
+            background: var(--bg);
+            color: var(--text);
+        }
+
+        header {
+            background: #4a90e2;
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav {
+            background: #eee;
+            padding: 10px 20px;
+        }
+
+        nav a {
+            margin-right: 20px;
+            text-decoration: none;
+            color: #333;
+        }
+
+        .container {
+            padding: 20px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 10px;
+            font-size: 13px;
+            color: #888;
+            margin-top: 50px;
+        }
+
+        .theme-toggle {
+            cursor: pointer;
+            padding: 5px 10px;
+            background: white;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        [data-theme="dark"] {
+            --bg: #111;
+            --text: #f1f1f1;
+        }
+
+        [data-theme="light"] {
+            --bg: #ffffff;
+            --text: #000000;
+        }
+    </style>
+
+    <!-- JS for Dark Mode Toggle -->
+    <script>
+        function toggleTheme() {
+            const html = document.documentElement;
+            const current = html.getAttribute('data-theme');
+            html.setAttribute('data-theme', current === 'light' ? 'dark' : 'light');
+        }
+    </script>
+</head>
+
+<body>
+    <header>
+        <div>
+            <strong>🧕 OMS SaaS</strong>
+        </div>
+        <div>
+            <button onclick="toggleTheme()" class="theme-toggle">🌓 Toggle Theme</button>
+        </div>
+    </header>
+
+    <nav>
+        <a href="{% url 'dashboard' %}">🏠 Dashboard</a>
+        <a href="{% url 'order_list' %}">📦 Orders</a>
+        <a href="{% url 'product_list' %}">🛒 Products</a>
+        <a href="{% url 'manage_stock' %}">📊 Stock</a>
+        <a href="{% url 'manage_categories' %}">📁 Categories</a>
+        <a href="{% url 'product_create' %}">➕ Add Product</a>
+        <a href="{% url 'product_list' %}">📦 All Products</a>
+        <a href="{% url 'multi_invoice_print' %}">🖨 Multi-Invoice</a>
+        <a href="{% url 'logout' %}">🚪 Logout</a>
+    </nav>
+
+    <div class="container">
+        {% if messages %}
+            {% for msg in messages %}
+                <div style="padding: 10px; background: #dff0d8; margin-bottom: 10px;">
+                    {{ msg }}
+                </div>
+            {% endfor %}
+        {% endif %}
+
+        {% block content %}{% endblock %}
+    </div>
+
+    <footer>
+        &copy; {{ year|default:2025 }} OMS SaaS — Powered by Django
+    </footer>
+</body>
+</html>

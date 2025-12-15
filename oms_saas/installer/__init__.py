@@ -1,0 +1,1 @@
+# Installer logic will initialize DB and superuser

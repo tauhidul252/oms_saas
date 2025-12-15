@@ -1,0 +1,82 @@
+/* 🌐 Global */
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #f8f9fa;
+    color: #333;
+}
+
+a {
+    text-decoration: none;
+    color: #007bff;
+}
+a:hover {
+    text-decoration: underline;
+}
+
+/* 🔝 Header */
+header {
+    background-color: #343a40;
+    color: #fff;
+    padding: 10px 20px;
+}
+
+/* 📊 Dashboard Box */
+.dashboard-box {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    min-width: 220px;
+}
+
+/* 📋 Table */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+table th, table td {
+    border: 1px solid #dee2e6;
+    padding: 8px;
+    text-align: center;
+}
+table th {
+    background-color: #f1f1f1;
+}
+
+/* 📂 Sidebar */
+aside {
+    background-color: #212529;
+    color: #fff;
+    width: 200px;
+    height: 100vh;
+    position: fixed;
+    padding: 20px 0;
+}
+aside ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+aside ul li {
+    padding: 10px 20px;
+}
+aside ul li:hover {
+    background-color: #343a40;
+}
+aside ul li a {
+    color: #fff;
+}
+
+/* 🔲 Content */
+main {
+    margin-left: 220px;
+    padding: 20px;
+}
+
+/* 🌓 Dark Mode Placeholder */
+body.dark-mode {
+    background-color: #1e1e2f;
+    color: #f1f1f1;
+}

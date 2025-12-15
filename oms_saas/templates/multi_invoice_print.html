@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block title %}Print Multiple Invoices{% endblock %}
+
+{% block content %}
+<h2>🧾 Multi-Invoice Print</h2>
+
+<form method="post">
+    {% csrf_token %}
+    <label>Enter Order IDs (comma or newline separated):</label><br>
+    <textarea name="order_ids" rows="5" cols="60" placeholder="ORD-2025-05-07-0001, ORD-2025-05-07-0002"></textarea><br><br>
+    <button type="submit">🔍 Load Invoices</button>
+</form>
+
+{% if orders %}
+    <hr>
+    {% for order in orders %}
+        <div style="page-break-after: always; margin-bottom: 50px;">
+            {% include 'invoice_template.html' %}
+        </div>
+    {% endfor %}
+{% endif %}
+{% endblock %}

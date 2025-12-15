@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% block title %}All Orders{% endblock %}
+
+{% block content %}
+<h2>📋 All Orders</h2>
+
+<form method="get" action="{% url 'order_list' %}">
+    <input type="text" name="q" placeholder="Search..." value="{{ query }}">
+    <select name="status">
+        <option value="">All Status</option>
+        <option value="Pending" {% if status_filter == "Pending" %}selected{% endif %}>Pending</option>
+        <option value="Shipped" {% if status_filter == "Shipped" %}selected{% endif %}>Shipped</option>
+        <option value="Delivered" {% if status_filter == "Delivered" %}selected{% endif %}>Delivered</option>
+        <option value="Cancelled" {% if status_filter == "Cancelled" %}selected{% endif %}>Cancelled</option>
+    </select>
+    <button type="submit">🔍 Filter</button>
+</form>
+
+<form method="post" action="{% url 'multi_invoice_print' %}">
+    {% csrf_token %}
+    <table border="1" cellpadding="8" cellspacing="0" width="100%" style="margin-top: 20px;">
+        <thead>
+            <tr>
+                <th><input type="checkbox" id="selectAll"></th>
+                <th>Order ID</th>
+                <th>Customer</th>
+                <th>Status</th>
+                <th>Total</th>
+                <th>Date</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for order in orders %}
+            <tr>
+                <td><input type="checkbox" name="order_ids" value="{{ order.order_id }}"></td>
+                <td>{{ order.order_id }}</td>
+                <td>{{ order.customer.name }}</td>
+                <td>{{ order.status }}</td>
+                <td>৳ {{ order.grand_total }}</td>
+                <td>{{ order.date|date:"d M Y H:i" }}</td>
+                <td>
+                    <a href="{% url 'order_detail' order.order_id %}">🔍 View</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <br>
+    <button type="submit" class="btn btn-primary">🖨 Print Selected Invoices</button>
+</form>
+
+<script>
+document.getElementById('selectAll').addEventListener('change', function () {
+    const checkboxes = document.querySelectorAll('input[name="order_ids"]');
+    for (let cb of checkboxes) {
+        cb.checked = this.checked;
+    }
+});
+</script>
+{% endblock %}

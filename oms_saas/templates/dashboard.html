@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block title %}Dashboard | OMS SaaS{% endblock %}
+
+{% block content %}
+<h2>📊 Dashboard Overview</h2>
+
+<div style="display: flex; gap: 20px; flex-wrap: wrap;">
+
+    <div style="flex: 1; min-width: 200px; background: #fff; border: 1px solid #ddd; padding: 15px;">
+        <h3>Total Orders</h3>
+        <p>125</p>
+    </div>
+
+    <div style="flex: 1; min-width: 200px; background: #fff; border: 1px solid #ddd; padding: 15px;">
+        <h3>Total Customers</h3>
+        <p>88</p>
+    </div>
+
+    <div style="flex: 1; min-width: 200px; background: #fff; border: 1px solid #ddd; padding: 15px;">
+        <h3>Pending Deliveries</h3>
+        <p>10</p>
+    </div>
+
+    <div style="flex: 1; min-width: 200px; background: #fff; border: 1px solid #ddd; padding: 15px;">
+        <h3>Total Revenue</h3>
+        <p>৳ 95,200</p>
+    </div>
+
+</div>
+
+<hr style="margin: 30px 0;">
+
+<h3>📅 Today’s Summary</h3>
+<ul>
+    <li>New Orders: 5</li>
+    <li>Completed Deliveries: 3</li>
+    <li>New Customers: 2</li>
+</ul>
+
+{% endblock %}

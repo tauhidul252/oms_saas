@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block title %}Multiple Invoice Print{% endblock %}
+{% block content %}
+<h2>🖨 Invoice Print</h2>
+
+{% for order in orders %}
+<div style="page-break-after: always; border: 1px solid #aaa; padding: 20px; margin-bottom: 20px;">
+    <h3>Invoice: {{ order.order_id }}</h3>
+    <p><b>Name:</b> {{ order.customer.name }}</p>
+    <p><b>Phone:</b> {{ order.customer.phone }}</p>
+    <p><b>Address:</b> {{ order.customer.address }}</p>
+    <p><b>Status:</b> {{ order.status }}</p>
+    <p><b>Total:</b> ৳{{ order.grand_total }}</p>
+    <p><b>Date:</b> {{ order.date|date:"d M Y H:i" }}</p>
+    <hr>
+    <ul>
+        {% for item in order.items.all %}
+        <li>{{ item.product_name }} - Qty: {{ item.quantity }} × ৳{{ item.unit_price }} = ৳{{ item.total_price }}</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endfor %}
+{% endblock %}

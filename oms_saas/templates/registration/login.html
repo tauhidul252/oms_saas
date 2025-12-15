@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login | OMS SaaS</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: #f2f2f2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .login-box {
+            background: #fff;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+            width: 350px;
+        }
+        .login-box h2 {
+            margin-bottom: 20px;
+        }
+        .login-box input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .login-box button {
+            width: 100%;
+            padding: 10px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+        .login-box button:hover {
+            background: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-box">
+        <h2>Login to OMS</h2>
+        {% if form.errors %}
+            <p style="color:red;">Invalid credentials. Try again.</p>
+        {% endif %}
+        <form method="post">
+            {% csrf_token %}
+            {{ form.username.label_tag }}<br>
+            {{ form.username }}<br>
+            {{ form.password.label_tag }}<br>
+            {{ form.password }}<br>
+            <button type="submit">Login</button>
+        </form>
+    </div>
+</body>
+</html>
