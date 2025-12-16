@@ -9,6 +9,15 @@ class Customer(models.Model):
         return f"{self.name} ({self.phone})"
 
 
+STATUS_CHOICES = [
+    ("Pending", "Pending"),
+    ("Processing", "Processing"),
+    ("Shipped", "Shipped"),
+    ("Delivered", "Delivered"),
+    ("Cancelled", "Cancelled"),
+]
+
+
 class Order(models.Model):
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
     order_id = models.CharField(max_length=50, unique=True)
@@ -16,6 +25,7 @@ class Order(models.Model):
     tracking_number = models.CharField(max_length=100, null=True, blank=True)
     discount_amount = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
     grand_total = models.DecimalField(max_digits=10, decimal_places=2)
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default="Pending")
 
     def __str__(self):
         return self.order_id
@@ -31,15 +41,3 @@ class OrderItem(models.Model):
     def total_price(self):
         return self.quantity * self.unit_price
 
-## CHENGABLE TT252
-STATUS_CHOICES = [
-    ("Pending", "Pending"),
-    ("Processing", "Processing"),
-    ("Shipped", "Shipped"),
-    ("Delivered", "Delivered"),
-    ("Cancelled", "Cancelled"),
-]
-
-class Order(models.Model):
-    ...
-    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default="Pending")

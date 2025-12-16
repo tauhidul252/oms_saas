@@ -1,7 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from customers.models import Customer
-from orders.models import Order
+from orders.models import Customer, Order
 from core.models import OMSSettings
 from .models import MessageLog
 from .utils import replace_shortcodes

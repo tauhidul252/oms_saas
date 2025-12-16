@@ -1,9 +1,10 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.db import connection
 from django.core.management import call_command
 from django.contrib.auth.models import User
 from core.models import OMSSettings
 import os
+
 
 def installer_form(request):
     message = ""
